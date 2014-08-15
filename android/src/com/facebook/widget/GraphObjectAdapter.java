@@ -16,40 +16,25 @@
 
 package com.facebook.widget;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.SectionIndexer;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.facebook.FacebookException;
+import com.facebook.android.R;
 import com.facebook.internal.ImageDownloader;
 import com.facebook.internal.ImageRequest;
 import com.facebook.internal.ImageResponse;
 import com.facebook.model.GraphObject;
-import com.freshplanet.ane.AirFacebook.AirFacebookExtension;
+import org.json.JSONObject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.Collator;
+import java.util.*;
 
 class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements SectionIndexer {
     private static final int DISPLAY_SECTIONS_THRESHOLD = 1;
@@ -300,7 +285,7 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
         TextView result = (TextView) convertView;
 
         if (result == null) {
-            result = (TextView) inflater.inflate(AirFacebookExtension.getResourceId("layout.com_facebook_picker_list_section_header"), null);
+            result = (TextView) inflater.inflate(R.layout.com_facebook_picker_list_section_header, null);
         }
 
         result.setText(sectionHeader);
@@ -323,26 +308,26 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
         View result = convertView;
 
         if (result == null) {
-            result = inflater.inflate(AirFacebookExtension.getResourceId("layout.com_facebook_picker_activity_circle_row"), null);
+            result = inflater.inflate(R.layout.com_facebook_picker_activity_circle_row, null);
         }
-        ProgressBar activityCircle = (ProgressBar) result.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_row_activity_circle"));
+        ProgressBar activityCircle = (ProgressBar) result.findViewById(R.id.com_facebook_picker_row_activity_circle);
         activityCircle.setVisibility(View.VISIBLE);
 
         return result;
     }
 
     protected int getGraphObjectRowLayoutId(T graphObject) {
-        return AirFacebookExtension.getResourceId("layout.com_facebook_picker_list_row");
+        return R.layout.com_facebook_picker_list_row;
     }
 
     protected int getDefaultPicture() {
-        return AirFacebookExtension.getResourceId("drawable.com_facebook_profile_default_icon");
+        return R.drawable.com_facebook_profile_default_icon;
     }
 
     protected View createGraphObjectView(T graphObject) {
         View result = inflater.inflate(getGraphObjectRowLayoutId(graphObject), null);
 
-        ViewStub checkboxStub = (ViewStub) result.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_checkbox_stub"));
+        ViewStub checkboxStub = (ViewStub) result.findViewById(R.id.com_facebook_picker_checkbox_stub);
         if (checkboxStub != null) {
             if (!getShowCheckbox()) {
                 checkboxStub.setVisibility(View.GONE);
@@ -352,7 +337,7 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
             }
         }
 
-        ViewStub profilePicStub = (ViewStub) result.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_profile_pic_stub"));
+        ViewStub profilePicStub = (ViewStub) result.findViewById(R.id.com_facebook_picker_profile_pic_stub);
         if (!getShowPicture()) {
             profilePicStub.setVisibility(View.GONE);
         } else {
@@ -368,13 +353,13 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
         view.setTag(id);
 
         CharSequence title = getTitleOfGraphObject(graphObject);
-        TextView titleView = (TextView) view.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_title"));
+        TextView titleView = (TextView) view.findViewById(R.id.com_facebook_picker_title);
         if (titleView != null) {
             titleView.setText(title, TextView.BufferType.SPANNABLE);
         }
 
         CharSequence subtitle = getSubTitleOfGraphObject(graphObject);
-        TextView subtitleView = (TextView) view.findViewById(AirFacebookExtension.getResourceId("id.picker_subtitle"));
+        TextView subtitleView = (TextView) view.findViewById(R.id.picker_subtitle);
         if (subtitleView != null) {
             if (subtitle != null) {
                 subtitleView.setText(subtitle, TextView.BufferType.SPANNABLE);
@@ -385,7 +370,7 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
         }
 
         if (getShowCheckbox()) {
-            CheckBox checkBox = (CheckBox) view.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_checkbox"));
+            CheckBox checkBox = (CheckBox) view.findViewById(R.id.com_facebook_picker_checkbox);
             updateCheckboxState(checkBox, isGraphObjectSelected(id));
         }
 
@@ -393,7 +378,7 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
             URI pictureURI = getPictureUriOfGraphObject(graphObject);
 
             if (pictureURI != null) {
-                ImageView profilePic = (ImageView) view.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_image"));
+                ImageView profilePic = (ImageView) view.findViewById(R.id.com_facebook_picker_image);
 
                 // See if we have already pre-fetched this; if not, download it.
                 if (prefetchedPictureCache.containsKey(id)) {
@@ -443,14 +428,14 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
     String getPictureFieldSpecifier() {
         // How big is our image?
         View view = createGraphObjectView(null);
-        ImageView picture = (ImageView) view.findViewById(AirFacebookExtension.getResourceId("id.com_facebook_picker_image"));
+        ImageView picture = (ImageView) view.findViewById(R.id.com_facebook_picker_image);
         if (picture == null) {
             return null;
         }
 
         // Note: these dimensions are in pixels, not dips
         ViewGroup.LayoutParams layoutParams = picture.getLayoutParams();
-        return String.format("picture.height(%d).width(%d)", layoutParams.height, layoutParams.width);
+        return String.format(Locale.US, "picture.height(%d).width(%d)", layoutParams.height, layoutParams.width);
     }
 
 
@@ -650,7 +635,11 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
         if (sectionAndItem != null && sectionAndItem.graphObject != null) {
             String id = getIdOfGraphObject(sectionAndItem.graphObject);
             if (id != null) {
-                return Long.parseLong(id);
+                try {
+                    return Long.parseLong(id);
+                } catch (NumberFormatException e) {
+                    // NOOP
+                }
             }
         }
         return 0;
