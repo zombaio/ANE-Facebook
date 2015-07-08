@@ -116,7 +116,7 @@ public class LoginActivity extends Activity
 	                        		finishLogin(e);
 	                        	}
 	                        }
-						}, 1 );
+						}, 5 );
 					}
 					else
 					{
@@ -129,7 +129,7 @@ public class LoginActivity extends Activity
 	                        		finishLogin(e);
 	                        	}
 	                        }
-						}, 1 );
+						}, 5 );
 					}
 				}
 				catch (Exception e)
@@ -154,7 +154,18 @@ public class LoginActivity extends Activity
 		}
 		else
 		{
-			finishLogin();
+		    if(_context.usingStage3D) {
+				delayHandler = new Handler();
+				delayHandler.postDelayed( new Runnable() {
+                        @Override
+                        public void run() {
+                        	finishLogin();
+                        }
+					}, 5 );
+			} else {
+				finishLogin();
+			}
+			
 		}
 	}
 
