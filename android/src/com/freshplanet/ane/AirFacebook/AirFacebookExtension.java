@@ -1,22 +1,18 @@
 package com.freshplanet.ane.AirFacebook;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.adobe.air.AndroidActivityWrapper;
-import com.adobe.air.FacebookActivityResultCallback;
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 
-public class AirFacebookExtension implements FREExtension, FacebookActivityResultCallback
+public class AirFacebookExtension implements FREExtension
 {
 
 	public static String TAG = "AirFacebook";
 	public static Boolean nativeLogEnabled = true;
 	
 	public static AirFacebookExtensionContext context;
-
-    private AndroidActivityWrapper aaw = null;
 
 	public FREContext createContext(String extId)
 	{
@@ -26,19 +22,10 @@ public class AirFacebookExtension implements FREExtension, FacebookActivityResul
 	public void dispose()
 	{
 		context = null;
-
-        if (aaw != null) {
-
-            aaw.removeActivityResultListener(this);
-            aaw = null;
-        }
 	}
 	
 	public void initialize() {
-
         log("initialize");
-        aaw = AndroidActivityWrapper.GetAndroidActivityWrapper();
-        aaw.addActivityResultListener(this);
     }
 	
 	public static void log(String message)
@@ -67,8 +54,4 @@ public class AirFacebookExtension implements FREExtension, FacebookActivityResul
 	{
 		return context != null ? context.getResourceId(name) : 0;
 	}
-
-    public void onActivityResult(int var1, int var2, Intent var3) {
-        log(var1 + " - " + var2 + " - " + var3.toString());
-    }
 }

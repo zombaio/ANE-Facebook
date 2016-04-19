@@ -26,24 +26,18 @@ public class InitFacebookFunction extends BaseFunction
 			AirFacebookExtension.log("Initializing with custom applicationId: " + appID);
 		}
 
+        FacebookSdk.sdkInitialize(context.getActivity().getApplicationContext(), new FacebookSdk.InitializeCallback() {
+            @Override
+            public void onInitialized() {
 
-		try {
-            FacebookSdk.sdkInitialize(context.getActivity().getApplicationContext(), new FacebookSdk.InitializeCallback() {
-                @Override
-                public void onInitialized() {
+                AirFacebookExtension.log("Facebook sdk initialized with applicationId: " + FacebookSdk.getApplicationId());
 
-                    AirFacebookExtension.log("Facebook sdk initialized with applicationId: " + FacebookSdk.getApplicationId());
+                if (AirFacebookExtension.context != null && callback != null) {
 
-                    if (AirFacebookExtension.context != null && callback != null) {
-
-                        AirFacebookExtension.context.dispatchStatusEventAsync("SDKINIT_" + callback, "");
-                    }
+                    AirFacebookExtension.context.dispatchStatusEventAsync("SDKINIT_" + callback, "");
                 }
-            });
-        }
-        catch (Exception e) {
-            AirFacebookExtension.log(e.toString());
-        }
+            }
+        });
 
 		return null;
 	}
