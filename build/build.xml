@@ -69,7 +69,7 @@
         <!-- compile the java code -->
         <exec executable="./gradlew" dir="../">
             <env key="JAVA_HOME" path="${java8home}"/>
-            <env key="ANDROID_HOME" path="${android.sdk}"/>
+            <env key="ANDROID_HOME" path="${android.sdk.home}"/>
             <arg line=":android:assembleRelease"/>
         </exec>
 
@@ -96,6 +96,9 @@
         <!-- <copy file="${build.exploded-aar}/com.android.support/support-v4/23.2.1/jars/classes.jar" 
             tofile="temp/android/support-v4-23.1.1.jar"/> -->
 
+        <!-- <copy file="${build.exploded-aar}/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar" 
+            tofile="temp/android/internal_impl-23.2.1.jar"/> -->
+            
         <copy file="${build.exploded-aar}/facebook-android-sdk-4.11.0/jars/classes.jar" 
             tofile="temp/android/facebook-android-sdk-4.11.0.jar"/>
 
