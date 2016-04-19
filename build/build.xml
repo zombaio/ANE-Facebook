@@ -83,9 +83,9 @@
         <copy file="${build.bundles}/release/classes.jar" tofile="temp/android/lib${name}.jar"/>
 
         <!-- Copy over required resources -->
-        <!-- <copy todir="temp/android/facebook-res/">
-            <fileset dir="${build}/intermediates/res/merged/release/"/>
-        </copy> -->
+        <copy todir="temp/android/facebook-res/">
+            <fileset dir="${build}/intermediates/res/release/"/>
+        </copy>
 
         <!-- Copy over the bundled libs -->
         <copy todir="temp/android/">
