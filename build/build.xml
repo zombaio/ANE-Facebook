@@ -5,7 +5,7 @@
     <property file="build.config"/>
 
     <!-- All -->
-    <target name="all" depends="ios,android,swc,package" description="Full build of extension"/>
+    <target name="all" depends="android,ios,swc,package" description="Full build of extension"/>
 
     <!-- iOS -->
     <target name="ios" description="Build iOS Library">
@@ -77,9 +77,9 @@
         <copy file="${build.bundles}/release/classes.jar" tofile="temp/android/lib${name}.jar"/>
 
         <!-- Copy over required resources -->
-        <copy todir="temp/android/res/">
-            <fileset dir="${build}/intermediates/res/release/"/>
-        </copy>
+        <!-- <copy todir="temp/android/facebook-res/">
+            <fileset dir="${build}/intermediates/res/merged/release/"/>
+        </copy> -->
 
         <!-- Copy over the bundled libs -->
         <copy todir="temp/android/">
@@ -87,7 +87,17 @@
         </copy>
 
         <!-- Copy over the exploded aar libs (TODO: automate this) -->
+        <copy file="${build.exploded-aar}/com.android.support/cardview-v7/22.2.1/jars/classes.jar" 
+            tofile="temp/android/cardview-v7-22.2.1.jar"/>
 
+        <copy file="${build.exploded-aar}/com.android.support/customtabs/23.2.1/jars/classes.jar" 
+            tofile="temp/android/customtabs-23.2.1.jar"/>
+
+        <!-- <copy file="${build.exploded-aar}/com.android.support/support-v4/23.2.1/jars/classes.jar" 
+            tofile="temp/android/support-v4-23.2.1.jar"/> -->
+
+        <copy file="${build.exploded-aar}/facebook-android-sdk-4.11.0/jars/classes.jar" 
+            tofile="temp/android/facebook-android-sdk-4.11.0.jar"/>
 
         <!-- remove the build classes -->
         <delete dir="../android/build"/>
