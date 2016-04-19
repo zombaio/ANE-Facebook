@@ -94,7 +94,7 @@
             tofile="temp/android/customtabs-23.2.1.jar"/>
 
         <!-- <copy file="${build.exploded-aar}/com.android.support/support-v4/23.2.1/jars/classes.jar" 
-            tofile="temp/android/support-v4-23.2.1.jar"/> -->
+            tofile="temp/android/support-v4-23.1.1.jar"/> -->
 
         <copy file="${build.exploded-aar}/facebook-android-sdk-4.11.0/jars/classes.jar" 
             tofile="temp/android/facebook-android-sdk-4.11.0.jar"/>
