@@ -37,15 +37,8 @@ public class GameRequestDialogFunction extends BaseFunction implements FREFuncti
         if(filters != 0) builder.setFilters(GameRequestContent.Filters.values()[filters - 1]);
         if(message != null) builder.setMessage(message);
         if(objectID != null) builder.setObjectId(objectID);
-        if(recipients != null) builder.setTo(recipients.get(0));
-
-        if(recipientSuggestions != null)
-        {
-            ArrayList<String> suggestions = new ArrayList<String>(recipientSuggestions.size());
-            suggestions.addAll(recipientSuggestions);
-            builder.setSuggestions(suggestions);
-        }
-
+        if(recipients != null) builder.setRecipients(recipients);
+        if(recipientSuggestions != null) builder.setSuggestions(recipientSuggestions);
         if(title != null) builder.setTitle(title);
 
         GameRequestContent content = builder.build();
