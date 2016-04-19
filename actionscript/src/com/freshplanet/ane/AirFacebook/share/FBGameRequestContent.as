@@ -26,11 +26,11 @@ package com.freshplanet.ane.AirFacebook.share {
             return _filters;
         }
 
-        public function setActionType(val:FBGameRequestActionType) {
+        public function setActionType(val:FBGameRequestActionType):void {
             _actionType = val.value;
         }
 
-        public function setFilter(val:FBGameRequestFilter) {
+        public function setFilter(val:FBGameRequestFilter):void {
             _filters = val.value;
         }
     }
