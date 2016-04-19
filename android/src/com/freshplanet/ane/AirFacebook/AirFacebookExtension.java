@@ -2,7 +2,6 @@ package com.freshplanet.ane.AirFacebook;
 
 import android.util.Log;
 
-import com.adobe.air.AndroidActivityWrapper;
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 
